@@ -52,5 +52,5 @@ y este proyecto sigue [Semantic Versioning](https://semver.org/lang/es/).
 - Compatible con la API 10.2.0+ (The War Within)
 - Probado y verificado para uso en WoW Retail
 
-[Unreleased]: https://github.com/tu-usuario/codex-of-azeroth/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/tu-usuario/codex-of-azeroth/releases/tag/v0.1.0
+[Unreleased]: https://github.com/minyorange/codex-of-azeroth/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/minyorange/codex-of-azeroth/releases/tag/v0.1.0
