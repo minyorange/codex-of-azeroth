@@ -34,8 +34,8 @@ function MB:Initialize()
 
     -- Borde circular
     local border = btn:CreateTexture(nil, "OVERLAY")
-    border:SetSize(54, 54)
-    border:SetPoint("CENTER", btn, "CENTER", 0, 0)
+    border:SetSize(52, 52)
+    border:SetPoint("TOPLEFT", btn, "TOPLEFT", -10, 10)
     border:SetTexture("Interface\\Minimap\\MiniMap-TrackingBorder")
     btn.border = border
 

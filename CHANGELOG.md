@@ -16,6 +16,16 @@ y este proyecto sigue [Semantic Versioning](https://semver.org/lang/es/).
 - Línea temporal visual interactiva
 - 200+ entradas de lore (objetivo v1.0)
 
+## [0.1.1] - 2026-06-06
+
+### ⚙️ Mejoras y Correcciones
+- Se solucionó un error crítico de inicialización del addon, ahora carga correctamente.
+- Se corrigió la carga de la base de datos, las entradas de lore ya no se borran al iniciar.
+- La interfaz de usuario ahora es interactiva: los resultados de búsqueda y categorías se muestran como botones clicables.
+- Se mejoró la experiencia de búsqueda, la ventana principal permanece abierta al realizar una búsqueda.
+- Se corrigió el posicionamiento del icono del botón del minimapa, ahora está centrado correctamente.
+- Se implementó un workflow de GitHub Actions para generar automáticamente el `.zip` del addon al crear un tag.
+
 ## [0.1.0] - 2026-06-06
 
 ### ✨ Añadido

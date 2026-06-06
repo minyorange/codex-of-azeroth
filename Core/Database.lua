@@ -47,11 +47,11 @@ function DB:Initialize()
     -- Aquí solo esperamos a que existan.
     -- Llamamos a un hook que las datas usen
 
-    self.entries      = {}
-    self.byCategory   = { npcs={}, locations={}, factions={}, events={}, concepts={} }
-    self.byExpansion  = {}
-    self.byFaction    = {}
-    self.allIds       = {}
+    -- self.entries      = {}
+    -- self.byCategory   = { npcs={}, locations={}, factions={}, events={}, concepts={} }
+    -- self.byExpansion  = {}
+    -- self.byFaction    = {}
+    -- self.allIds       = {}
 
     self:Debug("Base de datos lista. Entradas cargadas: " .. tostring(self:GetEntryCount()))
 end

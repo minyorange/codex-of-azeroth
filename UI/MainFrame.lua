@@ -89,7 +89,6 @@ function MF:Initialize()
     searchBox:SetScript("OnEnterPressed", function(self)
         local query = self:GetText()
         if query and query ~= "" and query ~= CoA:L("SEARCH_PLACEHOLDER") then
-            self:GetParent():GetParent():Hide()
             MF:DoSearch(query)
         end
     end)
@@ -158,6 +157,11 @@ function MF:Show()
     if not self.frame then self:Initialize() end
     self.frame:Show()
     CoA.isMainFrameOpen = true
+
+    -- Actualizar estadísticas inmediatamente al mostrar
+    if CoA.Categories and CoA.Categories.UpdateStats then
+        CoA.Categories:UpdateStats()
+    end
 end
 
 function MF:Hide()

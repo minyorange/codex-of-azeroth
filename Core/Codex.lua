@@ -115,12 +115,15 @@ function CoA:RegisterEvents()
 
     -- ADDON_LOADED: Asegurar carga
     self:RegisterEvent("ADDON_LOADED", function(event, addonName)
-        if addonName == self.name then
+        if addonName == "CodexOfAzeroth" then
             self.Locale = CodexOfAzeroth_L
             self:Debug("ADDON_LOADED para " .. addonName)
         end
     end)
 end
+
+-- Registrar eventos al cargar el archivo
+CoA:RegisterEvents()
 
 -- Manejador de eventos: reenvía a handlers registrados
 eventFrame:SetScript("OnEvent", function(self, event, ...)
