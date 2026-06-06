@@ -85,9 +85,9 @@ if (Test-Path $zipPath) {
     Remove-Item $zipPath -Force
 }
 
-# Compress-Archive a nivel raíz con el nombre de carpeta correcto
-$stagingParent = Split-Path $stagingPath -Parent
-Compress-Archive -Path "$stagingPath\*" -DestinationPath $zipPath -CompressionLevel Optimal
+# Zip la carpeta CodexOfAzeroth/ entera para que al extraer en AddOns/
+# quede directamete: Interface/AddOns/CodexOfAzeroth/CodexOfAzeroth.toc
+Compress-Archive -Path "$stagingPath" -DestinationPath $zipPath -CompressionLevel Optimal
 
 # --- Limpieza ---
 Remove-Item -Recurse -Force $stagingPath
