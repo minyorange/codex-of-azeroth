@@ -1,1 +1,31 @@
-{"generate_release_notes":true,"env":"GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN"}
+# ============================================================
+# Codex of Azeroth :: GitHub Actions - Release Builder
+# ============================================================
+# Se ejecuta automáticamente al pushear un tag v*.*.*
+# Genera el ZIP y lo sube como Release en GitHub.
+# ============================================================
+
+name: Build & Release
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Release ZIP
+        shell: pwsh
+        run: .\build-release.ps1
+
+      - name: Upload to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: releases/CodexOfAzeroth-v${{ github.ref_name }}.zip
+          generate_release_notes: true
+          fail_on_unmatched_files: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
