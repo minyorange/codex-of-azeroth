@@ -25,9 +25,6 @@ function MF:Initialize()
     f:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
     f:SetMovable(true)
     f:EnableMouse(true)
-    f:SetResizable(true)
-    f:SetMinResize(600, 400)
-    f:SetMaxResize(1200, 900)
     f:Hide()
 
     f:SetBackdrop({
