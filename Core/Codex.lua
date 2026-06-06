@@ -16,7 +16,7 @@ local CoA = CodexOfAzeroth
 -- Tabla principal del addon
 -- ============================================================
 CoA.name        = "Codex of Azeroth"
-CoA.version     = "0.1.0"
+CoA.version     = "0.1.1"
 CoA.debug       = false  -- Cambiar a true para ver logs en consola
 
 -- Variables de estado

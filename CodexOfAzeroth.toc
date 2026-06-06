@@ -1,8 +1,8 @@
-## Interface: 100200
+## Interface: 110007, 120000
 ## Title: Codex of Azeroth
 ## Notes: Un compendio interactivo del lore de World of Warcraft.
-## Author: Codex of Azeroth Team
-## Version: 0.1.0
+## Author: minyorange
+## Version: 0.1.1
 ## SavedVariablesPerCharacter: CodexOfAzerothDB
 ## SavedVariablesPerAccount: CodexOfAzerothDB_Account
 ## IconTexture: Interface\Icons\INV_Misc_Book_09

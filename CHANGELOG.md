@@ -1,5 +1,52 @@
 # 📜 Changelog
 
+*Read this in other languages: [English](#english) | [Español](#español)*
+
+---
+
+## English
+
+All notable changes to Codex of Azeroth will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/).
+
+## [Unreleased]
+
+### Planned
+- Persistent favorites system (SavedVariables)
+- Personal notes per entry
+- Game tooltips for NPCs with lore
+- World map pins
+- Full English localization
+- Interactive visual timeline
+- 200+ lore entries (Goal for v1.0)
+
+## [0.1.1] - 2026-06-06
+
+### ⚙️ Improvements and Bug Fixes
+- Fixed a critical initialization bug so the addon now loads perfectly.
+- Fixed database wiping bug; lore entries are no longer cleared on PLAYER_LOGIN.
+- Made the UI fully interactive: search results and category lists are now clickable buttons.
+- Improved search UX: the main frame now remains open while performing a search.
+- Corrected the minimap button icon, which is now perfectly centered in its circular border.
+- Integrated GitHub Actions workflow to automatically package and release the `.zip` upon tag pushes.
+- Cleaned up the repository layout, placing all files and folders directly in the root directory.
+
+## [0.1.0] - 2026-06-06
+
+### ✨ Added
+- Initial addon release.
+- **Lore Database with 46 entries** across 5 categories.
+- **Complete Chronological Timeline** from the Titans to Midnight.
+- Draggable UI mainframe and minimap button.
+- Fuzzy search engine with score relevance.
+- Spanish localization.
+
+---
+
+## Español
+
 Todos los cambios notables de Codex of Azeroth serán documentados en este archivo.
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
@@ -25,42 +72,18 @@ y este proyecto sigue [Semantic Versioning](https://semver.org/lang/es/).
 - Se mejoró la experiencia de búsqueda, la ventana principal permanece abierta al realizar una búsqueda.
 - Se corrigió el posicionamiento del icono del botón del minimapa, ahora está centrado correctamente.
 - Se implementó un workflow de GitHub Actions para generar automáticamente el `.zip` del addon al crear un tag.
+- Se limpió el diseño del repositorio, colocando todos los archivos y carpetas directamente en el directorio raíz.
 
 ## [0.1.0] - 2026-06-06
 
 ### ✨ Añadido
 - Lanzamiento inicial del addon
-- **Base de datos con 46 entradas** del lore de WoW:
-  - 11 NPCs principales (Thrall, Jaina, Sylvanas, Illidan, Arthas, Anduin, Varian, Varok Saurfang, Malfurion, Tyrande, Garrosh, Uther, Vol'jin, Durotan, Tirion)
-  - 11 Lugares (Orgrimmar, Ventormenta, Dalaran, Monte Hyjal, Theramore, Karazhan, Shattrath, Rasganorte, Pandaria, Cementerio de Dragones, Pico de la Nieve Eterna, Luna de Plata, Terrallende)
-  - 10 Facciones (Horda, Alianza, Kirin Tor, Mano de Plata, Cenarion, Vuelos Dragón, Legión Ardiente, Titanes, Draenei, Renegados, Cruzada Argenta)
-  - 8 Eventos Históricos (Guerra de los Ancestros, Primera, Segunda, Tercera Guerra, Invasión de la Legión, Cuarta Guerra, Crisis de las Almas, Catástrofe)
-  - 6 Conceptos (Luz, Vacío, Más Allá, Sueño Esmeralda, Dioses Antiguos, Pozo de la Eternidad)
-- **Línea temporal completa** desde los Titanes hasta The War Within
-- **Interfaz gráfica** con:
-  - Sidebar de categorías navegable
-  - Vista de entrada detallada con scroll
-  - Ventana principal redimensionable y arrastrable
-  - Botón de minimapa arrastrable
-- **Motor de búsqueda** con:
-  - Búsqueda fuzzy (tolerante a typos)
-  - Normalización de acentos
-  - Sistema de relevancia con scoring
-  - Historial de búsquedas
-- **Slash commands**:
-  - `/coa` o `/codex` - Abrir/cerrar ventana
-  - `/coa <id>` - Abrir entrada específica
-  - `/coa buscar` - Enfocar búsqueda
-  - `/coa ayuda` - Mostrar ayuda
-- **Sistema de eventos** robusto y extensible
-- **Localización en español** completa
-- **100% offline** - sin dependencias externas
-- **Standalone** - sin necesidad de librerías externas
+- **Base de datos con 46 entradas** del lore de WoW en 5 categorías.
+- **Línea temporal completa** desde los Titanes hasta Midnight
+- Interfaz gráfica con mainframe y botón de minimapa arrastrables.
+- Motor de búsqueda con soporte fuzzy (tolerante a typos) y relevancia.
+- Localización en español.
 
-### 📝 Notas
-- Las descripciones del lore son **resúmenes originales** que citan las fuentes oficiales
-- Compatible con la API 10.2.0+ (The War Within)
-- Probado y verificado para uso en WoW Retail
-
-[Unreleased]: https://github.com/minyorange/codex-of-azeroth/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/minyorange/codex-of-azeroth/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/minyorange/codex-of-azeroth/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/minyorange/codex-of-azeroth/releases/tag/v0.1.0

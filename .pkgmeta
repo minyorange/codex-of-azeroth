@@ -1,0 +1,7 @@
+# BigWigs Packager Metadata
+ignore:
+  - .github
+  - .gitattributes
+  - .gitignore
+  - .pkgmeta
+  - CONTRIBUTING.md
