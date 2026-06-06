@@ -1,17 +1,17 @@
-## Interface: 100200
+## Interface: 120000
 ## Title: Codex of Azeroth
-## Notes: Un compendio interactivo del lore de World of Warcraft.
-## Author: Codex of Azeroth Team
+## Notes: An interactive in-game compendium of World of Warcraft lore. | Compendio interactivo del lore de World of Warcraft.
+## Author: minyorange
 ## Version: 0.1.0
+## DefaultState: enabled
 ## SavedVariablesPerCharacter: CodexOfAzerothDB
-## SavedVariablesPerAccount: CodexOfAzerothDB_Account
 ## IconTexture: Interface\Icons\INV_Misc_Book_09
 ## X-Category: Lore
-## X-Publisher: CodexOfAzeroth
-## X-Localizations: esES, enUS
+## X-Website: https://github.com/minyorange/codex-of-azeroth
+## X-Localizations: esES
 
 # Localización (debe ir primero)
-Core\Localization.lua
+Locale\esES.lua
 
 # Core del addon
 Core\Codex.lua

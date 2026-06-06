@@ -49,7 +49,7 @@ y este proyecto sigue [Semantic Versioning](https://semver.org/lang/es/).
 
 ### 📝 Notas
 - Las descripciones del lore son **resúmenes originales** que citan las fuentes oficiales
-- Compatible con la API 10.2.0+ (The War Within)
+- Compatible con la API 12.0+ (Midnight)
 - Probado y verificado para uso en WoW Retail
 
 [Unreleased]: https://github.com/minyorange/codex-of-azeroth/compare/v0.1.0...HEAD

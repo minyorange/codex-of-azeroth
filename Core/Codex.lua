@@ -26,7 +26,7 @@ CoA.currentEntryId  = nil
 CoA.currentCategory = nil
 
 -- Submódulos (se cargan en orden desde el .toc)
-CoA.Locale      = nil  -- Se inicializa con Localization.lua
+CoA.Locale      = nil  -- Se inicializa en ADDON_LOADED desde Locale/*.lua
 CoA.Database    = nil  -- Database.lua
 CoA.Search      = nil  -- Search.lua
 CoA.Categories  = nil  -- UI/Categories.lua
@@ -116,8 +116,16 @@ function CoA:RegisterEvents()
     -- ADDON_LOADED: Asegurar carga
     self:RegisterEvent("ADDON_LOADED", function(event, addonName)
         if addonName == self.name then
+            -- El archivo de Locale ya se cargó y (si coincide con GetLocale)
+            -- habrá asignado CodexOfAzeroth_L. Si no hay archivo para nuestro
+            -- idioma, self.Locale queda nil y L() devuelve la clave en inglés.
             self.Locale = CodexOfAzeroth_L
-            self:Debug("ADDON_LOADED para " .. addonName)
+            self:Debug(string.format(
+                "ADDON_LOADED para %s (locale=%s, traducciones=%s)",
+                addonName,
+                tostring(GetLocale()),
+                tostring(self.Locale and "OK" or "no disponibles, fallback a claves")
+            ))
         end
     end)
 end

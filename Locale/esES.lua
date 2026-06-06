@@ -1,12 +1,22 @@
 -- ============================================================
--- Codex of Azeroth :: Localization
+-- Codex of Azeroth :: Localización esES
 -- ============================================================
 -- Textos traducibles del addon. Por defecto en español (esES).
 -- Las claves se mantienen estables; solo cambian los valores.
+-- Para añadir un nuevo idioma, crea Locale/<codigo>.lua con la
+-- misma estructura y añade el código a "## X-Localizations" en
+-- el .toc. Core/Codex.lua seleccionará el archivo adecuado con
+-- GetLocale() automáticamente.
 -- ============================================================
 
 local L = {}
-CodexOfAzeroth_L = L  -- Global para que cualquier módulo pueda acceder
+-- Patrón estándar de WoW: cada locale se autoregistra solo si coincide
+-- con la del juego. Core/Codex.lua recoge CodexOfAzeroth_L en ADDON_LOADED.
+-- Si ningún archivo coincide, CoA:L() devuelve la clave (inglés por defecto).
+local _activeLocale = GetLocale()
+if _activeLocale == "esES" or _activeLocale == "esMX" then
+    CodexOfAzeroth_L = L
+end
 
 -- ====== General ======
 L["ADDON_NAME"]               = "Codex of Azeroth"

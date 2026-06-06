@@ -43,10 +43,16 @@ DB.categories = {
 function DB:Initialize()
     self:Debug("Indexando base de datos...")
 
-    -- Los archivos de Data/ crean entradas con CoA.Database:AddEntry
-    -- Aquí solo esperamos a que existan.
-    -- Llamamos a un hook que las datas usen
+    -- Inicializar SavedVariables por personaje (declarada en el .toc).
+    -- WoW ya habrá creado la tabla CodexOfAzerothDB si es la primera vez,
+    -- o la habrá cargado del disco en sesiones posteriores.
+    CodexOfAzerothDB = CodexOfAzerothDB or {}
+    CodexOfAzerothDB.favorites = CodexOfAzerothDB.favorites or {}  -- [entryId] = true
+    CodexOfAzerothDB.notes     = CodexOfAzerothDB.notes     or {}  -- [entryId] = "texto"
+    CodexOfAzerothDB.history   = CodexOfAzerothDB.history   or {}  -- {{query, timestamp}, ...}
+    self.DB = CodexOfAzerothDB
 
+    -- Índices en memoria (se reconstruyen desde los archivos de Data/)
     self.entries      = {}
     self.byCategory   = { npcs={}, locations={}, factions={}, events={}, concepts={} }
     self.byExpansion  = {}

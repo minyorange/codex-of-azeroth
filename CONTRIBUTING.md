@@ -90,7 +90,7 @@ Para añadir un nuevo idioma:
 2. Copia la estructura de `Locale/esES.lua`
 3. Traduce los valores (NO las claves)
 4. Añade el código a la línea `## X-Localizations:` en el `.toc`
-5. Actualiza el sistema de selección de idioma en `Core/Localization.lua`
+5. Actualiza el sistema de selección de idioma en `Locale/<codigo>.lua`
 
 ## 🔄 Proceso de Pull Request
 

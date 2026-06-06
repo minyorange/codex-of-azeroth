@@ -34,7 +34,6 @@
 CodexOfAzeroth/
 ├── CodexOfAzeroth.toc          # Manifiesto del addon
 ├── Core/
-│   ├── Localization.lua         # Textos en español
 │   ├── Codex.lua                # Clase principal
 │   ├── Database.lua             # Sistema de base de datos
 │   └── Search.lua               # Motor de búsqueda fuzzy
@@ -95,8 +94,8 @@ Este addon es un proyecto comunitario sin ánimo de lucro. El lore de Warcraft e
 
 ## ⚖️ Compatibilidad
 
-- **World of Warcraft: Retail** (The War Within, 11.0+)
-- API Interface: 10.2.0
+- **World of Warcraft: Retail** (Midnight, 12.0+)
+- API Interface: 120000 (Midnight)
 - Sin dependencias externas (standalone)
 
 ---
