@@ -149,7 +149,7 @@ end)
 SLASH_CODEX1 = "/coa"
 SLASH_CODEX2 = "/codex"
 SlashCmdList["CODEX"] = function(msg)
-    msg = (msg or ""):lower()
+    msg = (msg or ""):lower():trim()
 
     if msg == "" or msg == "abrir" or msg == "open" then
         if CoA.MainFrame and CoA.MainFrame.Toggle then

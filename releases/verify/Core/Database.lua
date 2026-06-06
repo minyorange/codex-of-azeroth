@@ -190,7 +190,7 @@ end
 -- ============================================================
 function DB:NormalizeKey(str)
     if not str then return "" end
-    return tostring(str):lower():gsub("%s+", "_"):gsub("^%s+", ""):gsub("%s+$", "")
+    return tostring(str):lower():gsub("%s+", "_"):trim()
 end
 
 -- Devuelve el nombre legible de una categoría
