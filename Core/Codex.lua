@@ -26,7 +26,7 @@ CoA.currentEntryId  = nil
 CoA.currentCategory = nil
 
 -- Submódulos (se cargan en orden desde el .toc)
-CoA.Locale      = nil  -- Se inicializa en ADDON_LOADED desde Locale/*.lua
+CoA.Locale      = nil  -- Se asigna en ADDON_LOADED desde Locale/*.lua
 CoA.Database    = nil  -- Database.lua
 CoA.Search      = nil  -- Search.lua
 CoA.Categories  = nil  -- UI/Categories.lua
@@ -67,9 +67,6 @@ function CoA:Initialize()
     self:Print(self:L("MSG_LOADED"), self.version)
     self.isLoaded = true
 
-    -- Suscribirse a eventos
-    self:RegisterEvents()
-
     -- Inicializar submódulos
     if self.Database and self.Database.Initialize then
         self.Database:Initialize()
@@ -92,47 +89,33 @@ end
 local eventFrame = CreateFrame("Frame", "CoA_EventFrame")
 CoA.eventFrame = eventFrame
 
-CoA.eventsRegistered = {}
+-- Registrar ADDON_LOADED INMEDIATAMENTE (esto se ejecuta al cargar el .toc)
+eventFrame:RegisterEvent("ADDON_LOADED")
+eventFrame:RegisterEvent("PLAYER_LOGIN")
 
-function CoA:RegisterEvent(event, handler)
-    if not self.eventsRegistered[event] then
-        eventFrame:RegisterEvent(event)
-        self.eventsRegistered[event] = true
-    end
-    -- Guardar handler en un diccionario
-    if not self.eventHandlers then
-        self.eventHandlers = {}
-    end
-    self.eventHandlers[event] = self.eventHandlers[event] or {}
-    table.insert(self.eventHandlers[event], handler)
-end
+eventFrame:SetScript("OnEvent", function(self, event, ...)
+    local coa = CodexOfAzeroth
 
-function CoA:RegisterEvents()
-    -- PLAYER_LOGIN: Inicializar el addon
-    self:RegisterEvent("PLAYER_LOGIN", function()
-        self:Initialize()
-    end)
-
-    -- ADDON_LOADED: Asegurar carga
-    self:RegisterEvent("ADDON_LOADED", function(event, addonName)
-        if addonName == self.name then
-            -- El archivo de Locale ya se cargó y (si coincide con GetLocale)
-            -- habrá asignado CodexOfAzeroth_L. Si no hay archivo para nuestro
-            -- idioma, self.Locale queda nil y L() devuelve la clave en inglés.
-            self.Locale = CodexOfAzeroth_L
-            self:Debug(string.format(
+    if event == "ADDON_LOADED" then
+        local addonName = ...
+        if addonName == coa.name then
+            coa.Locale = CodexOfAzeroth_L
+            coa:Debug(string.format(
                 "ADDON_LOADED para %s (locale=%s, traducciones=%s)",
                 addonName,
                 tostring(GetLocale()),
-                tostring(self.Locale and "OK" or "no disponibles, fallback a claves")
+                tostring(coa.Locale and "OK" or "no disponibles, fallback a claves")
             ))
         end
-    end)
-end
+        return
+    end
 
--- Manejador de eventos: reenvía a handlers registrados
-eventFrame:SetScript("OnEvent", function(self, event, ...)
-    local coa = CodexOfAzeroth
+    if event == "PLAYER_LOGIN" then
+        coa:Initialize()
+        return
+    end
+
+    -- Otros eventos registrados dinámicamente
     if coa.eventHandlers and coa.eventHandlers[event] then
         for _, handler in ipairs(coa.eventHandlers[event]) do
             local ok, err = pcall(handler, event, ...)
