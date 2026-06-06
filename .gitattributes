@@ -1,0 +1,22 @@
+# Configuración de Git para Codex of Azeroth
+
+# Forzar saltos de línea LF en archivos de texto
+* text=auto eol=lf
+
+# Específicos de Lua: forzar LF
+*.lua text eol=lf
+*.toc text eol=lf
+
+# Markdown
+*.md text eol=lf
+
+# Lenguajes con detección automática
+*.lua linguist-language=Lua
+*.toc linguist-language=Lua
+
+# Archivos binarios
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
