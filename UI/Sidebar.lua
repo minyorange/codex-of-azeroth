@@ -49,7 +49,7 @@ function Sidebar:Create()
         yOffset = yOffset - 44
     end
 
-    local allBtn = self:_CreateAllButton(frame, yOffset - 8)
+    self.allButton = self:_CreateAllButton(frame, yOffset - 8)
     yOffset = yOffset - 50
 
     local separator = frame:CreateTexture(nil, "OVERLAY")
@@ -145,6 +145,13 @@ function Sidebar:SetActive(categoryId)
             else
                 btn.activeTex:Hide()
             end
+        end
+    end
+    if self.allButton and self.allButton.activeTex then
+        if categoryId == nil then
+            self.allButton.activeTex:Show()
+        else
+            self.allButton.activeTex:Hide()
         end
     end
 end

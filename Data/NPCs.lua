@@ -37,7 +37,7 @@ AddNPC {
         "Novela: The Rise of the Horde (2006)",
         "World of Warcraft (2004-presente)",
     },
-        displayId   = 115495,
+    displayId   = 115495,
     icon        = "INV_Misc_QuestionMark",
 }
 
@@ -62,7 +62,7 @@ AddNPC {
         "Novela: Rise of the Horde (2006)",
         "World of Warcraft: The Burning Crusade (2007)",
     },
-        displayId   = 104817,
+    displayId   = 104817,
     icon        = "INV_Misc_QuestionMark",
 }
 
@@ -86,7 +86,7 @@ AddNPC {
         "World of Warcraft (2004-presente)",
         "Novela: Arthas: Rise of the Lich King (2009)",
     },
-        displayId   = 86014,
+    displayId   = 86014,
     icon        = "INV_Misc_QuestionMark",
 }
 
@@ -111,7 +111,7 @@ AddNPC {
         "World of Warcraft: Legion (2016)",
         "Novela: Stormrage (2010)",
     },
-        displayId   = 27571,
+    displayId   = 27571,
     icon        = "INV_Misc_QuestionMark",
 }
 
@@ -136,7 +136,7 @@ AddNPC {
         "World of Warcraft (2004-presente)",
         "Novela: Arthas: Rise of the Lich King (2009)",
     },
-        displayId   = 121918,
+    displayId   = 121918,
     icon        = "INV_Misc_QuestionMark",
 }
 
@@ -160,7 +160,7 @@ AddNPC {
         "Novela: The Shattering (2010)",
         "World of Warcraft: Battle for Azeroth (2018)",
     },
-        displayId   = 115995,
+    displayId   = 115995,
     icon        = "INV_Misc_QuestionMark",
 }
 
@@ -189,7 +189,7 @@ AddNPC {
         "Novela: The Shattering (2010)",
         "Cómic: World of Warcraft (2007-2009)",
     },
-        displayId   = 70626,
+    displayId   = 70626,
     icon        = "INV_Misc_QuestionMark",
 }
 
@@ -213,7 +213,7 @@ AddNPC {
         "World of Warcraft: Battle for Azeroth (2018)",
         "Cómic: World of Warcraft (2007-2009)",
     },
-        displayId   = 14732,
+    displayId   = 14732,
     icon        = "INV_Misc_QuestionMark",
 }
 
@@ -238,7 +238,7 @@ AddNPC {
         "Novela: Stormrage (2010)",
         "World of Warcraft: Cataclysm (2010)",
     },
-        displayId   = 127688,
+    displayId   = 127688,
     icon        = "INV_Misc_QuestionMark",
 }
 
@@ -262,7 +262,7 @@ AddNPC {
         "World of Warcraft (2004-presente)",
         "Novela: Stormrage (2010)",
     },
-        displayId   = 108637,
+    displayId   = 108637,
     icon        = "INV_Misc_QuestionMark",
 }
 
@@ -286,7 +286,7 @@ AddNPC {
         "World of Warcraft: Mists of Pandaria (2012)",
         "World of Warcraft: Warlords of Draenor (2014)",
     },
-        displayId   = 51790,
+    displayId   = 51790,
     icon        = "INV_Misc_QuestionMark",
 }
 
@@ -310,7 +310,7 @@ AddNPC {
         "World of Warcraft (2004-presente)",
         "Novela: Arthas: Rise of the Lich King (2009)",
     },
-        displayId   = 113411,
+    displayId   = 113411,
     icon        = "INV_Misc_QuestionMark",
 }
 
@@ -334,7 +334,7 @@ AddNPC {
         "World of Warcraft: Mists of Pandaria (2012)",
         "World of Warcraft: Legion (2016)",
     },
-        displayId   = 73189,
+    displayId   = 73189,
     icon        = "INV_Misc_QuestionMark",
 }
 
@@ -359,7 +359,7 @@ AddNPC {
         "Novela: The Rise of the Horde (2006)",
         "World of Warcraft: Warlords of Draenor (2014)",
     },
-        displayId   = 62056,
+    displayId   = 62056,
     icon        = "INV_Misc_QuestionMark",
 }
 
@@ -383,6 +383,6 @@ AddNPC {
         "World of Warcraft (2004-presente)",
         "Novela: Arthas: Rise of the Lich King (2009)",
     },
-        displayId   = 70798,
+    displayId   = 70798,
     icon        = "INV_Misc_QuestionMark",
 }

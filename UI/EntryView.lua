@@ -13,8 +13,6 @@ function EntryView:constructor(parent)
     self.fields = {}
     self.currentTab = "lore"
     self._currentEntry = nil
-    self._listEntries = nil
-    self._listTitle = nil
 end
 
 function EntryView:Create()
@@ -230,7 +228,6 @@ function EntryView:_UpdateTabContent()
         end
     end
 
-    local maxY = self.content:GetHeight()
     if self.scroll then
         self.scroll:SetVerticalScroll(0)
     end
