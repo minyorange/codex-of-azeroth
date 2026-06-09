@@ -2,33 +2,39 @@
 ## Title: Codex of Azeroth
 ## Notes: Un compendio interactivo del lore de World of Warcraft.
 ## Author: minyorange
-## Version: 0.1.1
-## SavedVariablesPerCharacter: CodexOfAzerothDB
-## SavedVariablesPerAccount: CodexOfAzerothDB_Account
+## Version: 0.2.0
 ## IconTexture: Interface\Icons\INV_Misc_Book_09
 ## X-Category: Lore
 ## X-Publisher: CodexOfAzeroth
-## X-Localizations: esES, enUS
 
-# Localización (debe ir primero)
-Core\Localization.lua
+# Base OOP y utilidades
+Core\Class.lua
+Core\Helpers.lua
+Core\Colors.lua
+
+# Localización
+Core\Locale.lua
+Core\Locale-enUS.lua
 
 # Core del addon
-Core\Codex.lua
+Core\EventManager.lua
 Core\Database.lua
 Core\Search.lua
+Core\Init.lua
 
 # Datos del lore
 Data\NPCs.lua
 Data\Locations.lua
 Data\Factions.lua
 Data\Events.lua
-Data\Timeline.lua
 Data\Concepts.lua
+Data\Timeline.lua
 Data\LoreData.lua
 
 # Interfaz
-UI\Categories.lua
-UI\CodeEntry.lua
 UI\MinimapButton.lua
+UI\ModelView.lua
 UI\MainFrame.lua
+UI\Sidebar.lua
+UI\SearchBar.lua
+UI\EntryView.lua

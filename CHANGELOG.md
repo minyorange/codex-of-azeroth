@@ -11,16 +11,38 @@ All notable changes to Codex of Azeroth will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [0.2.0] - 2026-06-09
 
-### Planned
-- Persistent favorites system (SavedVariables)
-- Personal notes per entry
-- Game tooltips for NPCs with lore
-- World map pins
-- Full English localization
-- Interactive visual timeline
-- 200+ lore entries (Goal for v1.0)
+### Added
+- Full OOP architecture with metatable-based class system (`Core/Class.lua`)
+- English locale (`enUS`/`enGB`) support via automatic client detection
+- **3D model viewer** with drag-to-rotate (`UI/ModelView.lua`) — shows NPC models via `PlayerModel:SetDisplayInfo`
+- `displayId` field hardcoded for all 15 NPC entries (Retail CreatureDisplayDB IDs)
+- Tab system in entry view: Lore / Related / Sources with dynamic content switching
+- Dynamic minimap button radius adapting to Minimap size
+- Proportional content resizing when window is resized
+
+### Fixed
+- **Critical**: `msg:trim()` crash on `/coa` slash commands (Lua 5.1 polyfill in `Helpers.lua`)
+- **Critical**: `:trim()` in `Database:NormalizeKey()` causing errors on expansion indexing
+- **Critical**: Wrong method syntax on `CoA.Timeline:Debug` (colon used in static assignment)
+- Removed dual initialization race condition in `LoreData.lua`
+- Removed orphan `SavedVariables` declarations (never persisted)
+
+### Changed
+- **Adventure Guide UI**: completely redesigned layout — dark backdrop, gold borders, sidebar nav with category icons
+- Complete codebase refactored to OOP with metatables (`Coa.Class:extend()` / `:new()`)
+- `Core/Codex.lua` → `Core/Init.lua` (lightweight bootstrap)
+- `UI/Categories.lua` → `UI/Sidebar.lua` (class-based, icon buttons, active state)
+- `UI/CodeEntry.lua` → `UI/EntryView.lua` (class-based with tabbed content)
+- `UI/ModelView.lua` created — rotatable PlayerModel integration
+- Search bar moved to **footer** of main frame (Adventure Guide style)
+- Event system extracted to `Core/EventManager.lua`
+- Color constants centralized in `Core/Colors.lua`
+- Utility functions (trim, etc.) in `Core/Helpers.lua`
+- `Database:GetAll()` now uses cache to avoid O(n log n) sort on every call
+- Hardcoded UI strings moved to localization
+- All UI labels properly shown/hidden to prevent overlay artifacts
 
 ## [0.1.1] - 2026-06-06
 
@@ -52,16 +74,38 @@ Todos los cambios notables de Codex of Azeroth serán documentados en este archi
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto sigue [Semantic Versioning](https://semver.org/lang/es/).
 
-## [Unreleased]
+## [0.2.0] - 2026-06-09
 
-### Planeado
-- Sistema de favoritos persistente (SavedVariables)
-- Notas personales por entrada
-- Tooltips en NPCs del juego
-- Pins de lugares en el mapa
-- Localización al inglés
-- Línea temporal visual interactiva
-- 200+ entradas de lore (objetivo v1.0)
+### Añadido
+- Arquitectura OOP completa con sistema de clases basado en metatables (`Core/Class.lua`)
+- Soporte de localización en inglés (`enUS`/`enGB`) con detección automática del cliente
+- **Visor de modelos 3D** con rotación por arrastre (`UI/ModelView.lua`) — muestra modelos de PNJs mediante `PlayerModel:SetDisplayInfo`
+- Campo `displayId` codificado para las 15 entradas de PNJ (IDs de CreatureDisplayDB Retail)
+- Sistema de pestañas en la vista de entrada: Lore / Relacionadas / Fuentes con cambio dinámico de contenido
+- Botón de minimapa con radio dinámico adaptado al tamaño del minimapa
+- Redimensionamiento proporcional del contenido al escalar la ventana
+
+### Corregido
+- **Crítico**: Crash en `msg:trim()` al usar comandos `/coa` (polyfill para Lua 5.1 en `Helpers.lua`)
+- **Crítico**: Error en `:trim()` en `Database:NormalizeKey()` al indexar por expansión
+- **Crítico**: Sintaxis incorrecta en `CoA.Timeline:Debug` (uso de ':' en asignación estática)
+- Eliminada condición de carrera de doble inicialización en `LoreData.lua`
+- Eliminadas declaraciones huérfanas de `SavedVariables` (nunca persistidas)
+
+### Cambiado
+- **UI estilo Guía de Aventuras**: diseño completamente rediseñado — fondo oscuro, bordes dorados, navegación lateral con iconos de categoría
+- Código completamente refactorizado a OOP con metatables (`Coa.Class:extend()` / `:new()`)
+- `Core/Codex.lua` → `Core/Init.lua` (bootstrap ligero)
+- `UI/Categories.lua` → `UI/Sidebar.lua` (basado en clases, botones con iconos, estado activo)
+- `UI/CodeEntry.lua` → `UI/EntryView.lua` (basado en clases con contenido por pestañas)
+- `UI/ModelView.lua` creado — integración de PlayerModel rotable
+- Barra de búsqueda movida al **pie** de la ventana principal (estilo Guía de Aventuras)
+- Sistema de eventos extraído a `Core/EventManager.lua`
+- Constantes de color centralizadas en `Core/Colors.lua`
+- Utilidades (trim, etc.) en `Core/Helpers.lua`
+- `Database:GetAll()` ahora usa caché para evitar sort O(n log n) en cada llamada
+- Strings hardcodeados de la UI movidos a localización
+- Labels de UI correctamente ocultadas para evitar artefactos visuales
 
 ## [0.1.1] - 2026-06-06
 
@@ -84,6 +128,7 @@ y este proyecto sigue [Semantic Versioning](https://semver.org/lang/es/).
 - Motor de búsqueda con soporte fuzzy (tolerante a typos) y relevancia.
 - Localización en español.
 
-[Unreleased]: https://github.com/minyorange/codex-of-azeroth/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/minyorange/codex-of-azeroth/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/minyorange/codex-of-azeroth/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/minyorange/codex-of-azeroth/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/minyorange/codex-of-azeroth/releases/tag/v0.1.0

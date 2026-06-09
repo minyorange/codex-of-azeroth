@@ -1,33 +1,26 @@
--- ============================================================
--- Codex of Azeroth :: MainFrame
--- ============================================================
--- Ventana principal del Códice. Contiene:
---   - Título y barra de búsqueda
---   - Panel lateral de categorías
---   - Vista de entrada
--- ============================================================
-
 CodexOfAzeroth = CodexOfAzeroth or {}
 local CoA = CodexOfAzeroth
 
-CoA.MainFrame = {}
-local MF = CoA.MainFrame
+local MainFrame = CoA.Class:extend()
 
--- ============================================================
--- Inicializar
--- ============================================================
-function MF:Initialize()
+function MainFrame:constructor()
+    self.frame = nil
+    self.sidebar = nil
+    self.entryView = nil
+    self.searchBar = nil
+end
+
+function MainFrame:Initialize()
     if self.frame then return end
 
-    -- Frame raíz
     local f = CreateFrame("Frame", "CoA_MainFrame", UIParent, "BackdropTemplate")
-    f:SetSize(780, 540)
+    f:SetSize(820, 580)
     f:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
     f:SetMovable(true)
     f:EnableMouse(true)
     f:SetResizable(true)
-    f:SetMinResize(600, 400)
-    f:SetMaxResize(1200, 900)
+    f:SetMinResize(700, 480)
+    f:SetMaxResize(1400, 1000)
     f:Hide()
 
     f:SetBackdrop({
@@ -36,113 +29,87 @@ function MF:Initialize()
         edgeSize = 32,
         insets   = { left = 8, right = 8, top = 8, bottom = 8 },
     })
-    f:SetBackdropColor(0.04, 0.04, 0.08, 0.95)
-    f:SetBackdropBorderColor(0.4, 0.4, 0.5, 1)
+    f:SetBackdropColor(unpack(CoA.Colors.TITLE_BG))
+    f:SetBackdropBorderColor(unpack(CoA.Colors.BORDER))
 
-    -- Título (draggable)
     local title = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    title:SetPoint("TOP", f, "TOP", 0, -16)
+    title:SetPoint("TOP", f, "TOP", 0, -14)
     title:SetText(CoA:L("WINDOW_TITLE"))
     title:SetTextColor(1, 0.85, 0.4)
     f.title = title
 
-    -- Botón cerrar
     local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
     close:SetPoint("TOPRIGHT", f, "TOPRIGHT", -8, -8)
     close:SetScript("OnClick", function() self:Hide() end)
-    f.close = close
 
-    -- Barra de búsqueda
-    local searchFrame = CreateFrame("Frame", nil, f, "BackdropTemplate")
-    searchFrame:SetSize(550, 30)
-    searchFrame:SetPoint("TOP", f, "TOP", 0, -42)
-    searchFrame:SetBackdrop({
-        bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        edgeSize = 12,
-        insets   = { left = 2, right = 2, top = 2, bottom = 2 },
-    })
-    searchFrame:SetBackdropColor(0, 0, 0, 0.5)
-
-    local searchBox = CreateFrame("EditBox", nil, searchFrame)
-    searchBox:SetSize(520, 24)
-    searchBox:SetPoint("CENTER", searchFrame, "CENTER", 0, 0)
-    searchBox:SetAutoFocus(false)
-    searchBox:SetFontObject("GameFontHighlight")
-    searchBox:SetTextColor(1, 1, 1)
-    searchBox:SetText(CoA:L("SEARCH_PLACEHOLDER"))
-    searchBox:SetTextColor(0.6, 0.6, 0.6)
-    searchBox.searchFrame = searchFrame
-
-    searchBox:SetScript("OnEditFocusGained", function(self)
-        if self:GetText() == CoA:L("SEARCH_PLACEHOLDER") then
-            self:SetText("")
-            self:SetTextColor(1, 1, 1)
-        end
+    f:SetScript("OnMouseDown", function(_, button)
+        if button == "LeftButton" then f:StartMoving() end
     end)
-    searchBox:SetScript("OnEditFocusLost", function(self)
-        if self:GetText() == "" then
-            self:SetText(CoA:L("SEARCH_PLACEHOLDER"))
-            self:SetTextColor(0.6, 0.6, 0.6)
-        end
+    f:SetScript("OnMouseUp", function(_, button)
+        if button == "LeftButton" then f:StopMovingOrSizing() end
     end)
-    searchBox:SetScript("OnEnterPressed", function(self)
-        local query = self:GetText()
-        if query and query ~= "" and query ~= CoA:L("SEARCH_PLACEHOLDER") then
-            MF:DoSearch(query)
-        end
+    f:SetScript("OnHide", function() f:StopMovingOrSizing() end)
+    f:SetScript("OnSizeChanged", function()
+        self:_OnResize()
     end)
 
-    f.searchBox = searchBox
-    f.searchFrame = searchFrame
-
-    -- Permitir arrastrar el frame desde la barra de título
-    f:SetScript("OnMouseDown", function(self, button)
-        if button == "LeftButton" then
-            self:StartMoving()
-        end
-    end)
-    f:SetScript("OnMouseUp", function(self, button)
-        if button == "LeftButton" then
-            self:StopMovingOrSizing()
-        end
-    end)
-    f:SetScript("OnHide", function(self)
-        self:StopMovingOrSizing()
-    end)
-
-    -- Crear sub-paneles
-    CoA.Categories:CreatePanel(f)
-    CoA.CodeEntry:Create(f)
-
-    -- Conectar callback de categorías
-    CoA.Categories.OnCategoryClick = function(categoryId)
+    local sidebar = CoA.Sidebar:new(f)
+    sidebar:Create()
+    sidebar.onCategoryClick = function(categoryId)
         if categoryId then
             local entries = CoA.Database:GetByCategory(categoryId)
-            CoA.CodeEntry:ShowList(entries, CoA.Database:GetCategoryDisplayName(categoryId))
+            self.entryView:ShowList(entries, CoA.Database:GetCategoryDisplayName(categoryId))
         else
-            local entries = CoA.Database:GetAll()
-            CoA.CodeEntry:ShowList(entries, CoA:L("CATEGORY_ALL"))
+            self.entryView:ShowList(CoA.Database:GetAll(), CoA:L("CATEGORY_ALL"))
         end
         CoA.currentCategory = categoryId
     end
+    self.sidebar = sidebar
+
+    self.entryView = CoA.EntryView:new(f)
+    self.entryView:Create()
+    self.entryView:ShowWelcome()
+
+    self.searchBar = CoA.SearchBar:new(f, function(query)
+        self:DoSearch(query)
+    end)
+    self.searchBar:Create()
+    self.searchBar:SetPoint("BOTTOM", f, "BOTTOM", 0, 12)
 
     self.frame = f
-    f:Show()
-    f:Hide()
 
-    -- Actualizar estadísticas
     C_Timer.After(2, function()
-        if CoA.Categories and CoA.Categories.UpdateStats then
-            CoA.Categories:UpdateStats()
+        if self.sidebar and self.sidebar.UpdateStats then
+            self.sidebar:UpdateStats()
         end
     end)
 end
 
--- ============================================================
--- Mostrar/Ocultar
--- ============================================================
-function MF:Toggle()
+function MainFrame:_OnResize()
+    if not self.frame then return end
+    local width = self.frame:GetWidth()
+    local height = self.frame:GetHeight()
+
+    if self.sidebar and self.sidebar.frame then
+        local sh = math.max(200, height - 80)
+        self.sidebar.frame:SetHeight(sh)
+    end
+
+    if self.entryView and self.entryView.frame then
+        local ew = math.max(300, width - 230)
+        local eh = math.max(200, height - 100)
+        self.entryView.frame:SetSize(ew, eh)
+    end
+
+    if self.searchBar and self.searchBar.frame then
+        if self.frame then
+            local sw = math.max(200, width - 40)
+            self.searchBar.frame:SetWidth(sw)
+        end
+    end
+end
+
+function MainFrame:Toggle()
     if not self.frame then self:Initialize() end
     if self.frame:IsShown() then
         self.frame:Hide()
@@ -153,34 +120,30 @@ function MF:Toggle()
     end
 end
 
-function MF:Show()
+function MainFrame:Show()
     if not self.frame then self:Initialize() end
     self.frame:Show()
     CoA.isMainFrameOpen = true
 
-    -- Actualizar estadísticas inmediatamente al mostrar
-    if CoA.Categories and CoA.Categories.UpdateStats then
-        CoA.Categories:UpdateStats()
+    if self.sidebar and self.sidebar.UpdateStats then
+        self.sidebar:UpdateStats()
     end
 end
 
-function MF:Hide()
+function MainFrame:Hide()
     if self.frame then self.frame:Hide() end
     CoA.isMainFrameOpen = false
 end
 
-function MF:OpenSearch()
+function MainFrame:OpenSearch()
     if not self.frame then self:Initialize() end
     self:Show()
-    if self.frame.searchBox then
-        self.frame.searchBox:SetFocus()
+    if self.searchBar then
+        self.searchBar:Focus()
     end
 end
 
--- ============================================================
--- Hacer una búsqueda
--- ============================================================
-function MF:DoSearch(query)
+function MainFrame:DoSearch(query)
     if not query or query == "" then return end
 
     self:Show()
@@ -188,27 +151,25 @@ function MF:DoSearch(query)
     CoA.Search:AddToHistory(query)
 
     if results and #results > 0 then
-        CoA.CodeEntry:ShowList(results, string.format("Resultados: '%s' (%d)", query, #results))
+        self.entryView:ShowList(results, string.format(CoA:L("SEARCH_RESULTS_FOR"), query, #results))
     else
-        CoA.CodeEntry:ShowList({}, string.format("Sin resultados para '%s'", query))
+        self.entryView:ShowList({}, string.format(CoA:L("SEARCH_NO_RESULTS_FOR"), query))
     end
 end
 
--- ============================================================
--- Abrir una entrada específica
--- ============================================================
-function MF:OpenEntry(id)
+function MainFrame:OpenEntry(id)
     if not id then return end
     local entry = CoA.Database:GetEntry(id)
     if entry then
         self:Show()
-        CoA.CodeEntry:ShowEntry(entry)
+        self.entryView:ShowEntry(entry)
     else
-        -- Intentar búsqueda difusa
         local results = CoA.Search:QuickSearch(id, 5)
         if results and #results > 0 then
             self:Show()
-            CoA.CodeEntry:ShowList(results, "Quizás quisiste decir: '" .. id .. "'")
+            self.entryView:ShowList(results, string.format(CoA:L("SEARCH_DID_YOU_MEAN"), id))
         end
     end
 end
+
+CoA.MainFrame = MainFrame:new()

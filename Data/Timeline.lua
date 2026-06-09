@@ -53,7 +53,7 @@ CoA.Timeline.expansions = {
     { id = "tww",       name = "The War Within",          year = "2024" },
 }
 
-CoA.Timeline:Debug = function(self, msg)
+function CoA.Timeline:Debug(msg)
     if CoA.debug then
         CoA:Print("[Timeline] " .. tostring(msg))
     end
