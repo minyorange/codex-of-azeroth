@@ -121,35 +121,51 @@ function EntryView:_CreateTabs(parent, anchor)
     local xPos = 0
 
     for i, tab in ipairs(tabs) do
-        local btn = CreateFrame("Button", nil, frame)
-        btn:SetSize(100, 22)
+        local btn = CreateFrame("Button", nil, frame, "BackdropTemplate")
+        btn:SetHeight(22)
         btn:SetPoint("LEFT", frame, "LEFT", xPos, 0)
 
-        local bg = btn:CreateTexture(nil, "BACKGROUND")
-        bg:SetTexture("Interface\\Buttons\\UI-Panel-Button-Up")
-        bg:SetSize(100, 22)
-        bg:SetPoint("CENTER")
-        btn.bg = bg
+        btn:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            edgeSize = 10,
+            insets   = { left = 2, right = 2, top = 2, bottom = 2 },
+        })
+        btn:SetBackdropColor(0.08, 0.08, 0.12, 0.8)
+        btn:SetBackdropBorderColor(0.25, 0.25, 0.3, 0.8)
 
         local text = btn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-        text:SetPoint("CENTER", btn, "CENTER")
+        text:SetPoint("CENTER", btn, "CENTER", 0, 0)
         text:SetText(tab.label)
         text:SetTextColor(0.7, 0.7, 0.7)
         btn.text = text
 
-        local activeBg = btn:CreateTexture(nil, "BACKGROUND")
-        activeBg:SetTexture("Interface\\Buttons\\UI-Panel-Button-Highlight")
-        activeBg:SetSize(100, 22)
-        activeBg:SetPoint("CENTER")
-        activeBg:Hide()
-        btn.activeBg = activeBg
+        btn:SetScript("OnEnter", function()
+            if self.currentTab ~= tab.id then
+                btn:SetBackdropColor(0.15, 0.15, 0.22, 0.9)
+                btn:SetBackdropBorderColor(0.4, 0.4, 0.5, 1)
+                btn.text:SetTextColor(1, 1, 1)
+            end
+        end)
+
+        btn:SetScript("OnLeave", function()
+            if self.currentTab ~= tab.id then
+                btn:SetBackdropColor(0.08, 0.08, 0.12, 0.8)
+                btn:SetBackdropBorderColor(0.25, 0.25, 0.3, 0.8)
+                btn.text:SetTextColor(0.7, 0.7, 0.7)
+            end
+        end)
+
+        -- Calcular tamaño dinámico basado en el texto + padding
+        local width = math.max(100, text:GetStringWidth() + 24)
+        btn:SetWidth(width)
 
         btn:SetScript("OnClick", function()
             self:SetTab(tab.id)
         end)
 
         tabButtons[tab.id] = btn
-        xPos = xPos + 105
+        xPos = xPos + width + 6
     end
 
     frame.buttons = tabButtons
@@ -169,10 +185,12 @@ function EntryView:SetTab(tabId)
     self.currentTab = tabId
     for id, btn in pairs(self.tabButtons) do
         if id == tabId then
-            btn.activeBg:Show()
+            btn:SetBackdropColor(0.25, 0.18, 0.05, 0.95)
+            btn:SetBackdropBorderColor(0.8, 0.65, 0.25, 1)
             btn.text:SetTextColor(1, 0.85, 0.4)
         else
-            btn.activeBg:Hide()
+            btn:SetBackdropColor(0.08, 0.08, 0.12, 0.8)
+            btn:SetBackdropBorderColor(0.25, 0.25, 0.3, 0.8)
             btn.text:SetTextColor(0.7, 0.7, 0.7)
         end
     end
@@ -228,6 +246,22 @@ function EntryView:_UpdateTabContent()
         end
     end
 
+    local contentHeight = 20
+    for _, element in pairs(self.tabContent) do
+        if element and element.IsShown and element:IsShown() then
+            local eTop = element:GetTop()
+            local eBottom = element:GetBottom()
+            if eTop and eBottom then
+                local cTop = self.content:GetTop() or 0
+                local relBottom = cTop - eBottom
+                if relBottom > contentHeight then
+                    contentHeight = relBottom
+                end
+            end
+        end
+    end
+    self.content:SetHeight(contentHeight + 20)
+
     if self.scroll then
         self.scroll:SetVerticalScroll(0)
     end
@@ -246,14 +280,21 @@ function EntryView:GetListButton(index)
     btn:SetBackdropColor(0.1, 0.1, 0.2, 0.5)
     btn:SetBackdropBorderColor(0.3, 0.3, 0.4, 0.8)
 
+    local icon = btn:CreateTexture(nil, "ARTWORK")
+    icon:SetSize(28, 28)
+    icon:SetPoint("LEFT", btn, "LEFT", 8, 0)
+    btn.icon = icon
+
     local title = btn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    title:SetPoint("TOPLEFT", btn, "TOPLEFT", 10, -6)
+    title:SetPoint("TOPLEFT", btn, "TOPLEFT", 44, -6)
+    title:SetWidth(450)
+    title:SetJustifyH("LEFT")
     btn.title = title
 
     local summary = btn:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
     summary:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -2)
     summary:SetTextColor(0.7, 0.7, 0.7)
-    summary:SetWidth(490)
+    summary:SetWidth(450)
     summary:SetJustifyH("LEFT")
     summary:SetMaxLines(1)
     btn.summary = summary
@@ -322,6 +363,7 @@ function EntryView:ShowList(entries, listTitle)
     for i, entry in ipairs(entries or {}) do
         local btn = self:GetListButton(i)
         btn:SetPoint("TOPLEFT", self.content, "TOPLEFT", 0, yOffset)
+        btn.icon:SetTexture(entry.icon or "INV_Misc_Book_09")
         btn.title:SetText(entry.name or "?")
         btn.summary:SetText(entry.summary or "")
         btn:SetScript("OnClick", function()

@@ -6,7 +6,7 @@ Class.__index = Class
 
 function Class:new(...)
     local obj = setmetatable({}, self)
-    if obj:constructor then
+    if obj.constructor then
         obj:constructor(...)
     end
     return obj

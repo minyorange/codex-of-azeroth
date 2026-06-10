@@ -33,7 +33,7 @@ function Sidebar:Create()
     title:SetTextColor(0.7, 0.7, 0.7)
 
     local categories = {
-        { id = "npcs",      icon = "Interface\\Icons\\INV_Misc_Head_Orc" },
+        { id = "npcs",      icon = "Interface\\Icons\\INV_Misc_Head_Orc_01" },
         { id = "locations", icon = "Interface\\Icons\\INV_Misc_Map_01" },
         { id = "factions",  icon = "Interface\\Icons\\INV_BannerPVP_02" },
         { id = "events",    icon = "Interface\\Icons\\INV_Scroll_03" },

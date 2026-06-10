@@ -98,3 +98,5 @@ function SearchBar:SetPoint(...)
         self.frame:SetPoint(...)
     end
 end
+
+CoA.SearchBar = SearchBar

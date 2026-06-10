@@ -3,7 +3,7 @@ CodexOfAzeroth_L = L
 
 L["ADDON_NAME"]               = "Codex of Azeroth"
 L["ADDON_TAG"]                = "CoA"
-L["ADDON_VERSION"]            = "0.2.0"
+L["ADDON_VERSION"]            = "0.2.1"
 
 L["WINDOW_TITLE"]             = "Codex of Azeroth"
 L["WELCOME_MESSAGE"]          = "Bienvenido al Códice. Selecciona una categoría o busca una entrada para comenzar."

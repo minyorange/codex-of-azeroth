@@ -9,6 +9,7 @@ function ModelView:constructor(parent)
     self.model = nil
     self._isDragging = false
     self._prevX = 0
+    self._rotation = 0
 end
 
 function ModelView:Create()
@@ -47,7 +48,8 @@ function ModelView:Create()
         if self._isDragging then
             local x = GetCursorPosition()
             local dx = (x - self._prevX) * 0.01
-            model:SetRotation(model:GetRotation() + dx)
+            self._rotation = self._rotation + dx
+            model:SetRotation(self._rotation)
             self._prevX = x
         end
     end)
@@ -61,6 +63,7 @@ end
 function ModelView:ShowModel(displayId)
     if not self.model then return end
     if displayId and displayId > 0 then
+        self._rotation = 0
         self.model:SetDisplayInfo(displayId)
         self.model:SetPortraitZoom(1.0)
         self.model:SetRotation(0)

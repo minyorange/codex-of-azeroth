@@ -19,8 +19,12 @@ function MainFrame:Initialize()
     f:SetMovable(true)
     f:EnableMouse(true)
     f:SetResizable(true)
-    f:SetMinResize(700, 480)
-    f:SetMaxResize(1400, 1000)
+    if f.SetMinResize then
+        f:SetMinResize(700, 480)
+    end
+    if f.SetMaxResize then
+        f:SetMaxResize(1400, 1000)
+    end
     f:Hide()
 
     f:SetBackdrop({
@@ -74,7 +78,9 @@ function MainFrame:Initialize()
         self:DoSearch(query)
     end)
     self.searchBar:Create()
-    self.searchBar:SetPoint("BOTTOM", f, "BOTTOM", 0, 12)
+    self.searchBar:SetPoint("TOP", self.entryView.frame, "BOTTOM", 0, -4)
+    self.searchBar:SetPoint("LEFT", self.entryView.frame, "LEFT", 0, 0)
+    self.searchBar:SetPoint("RIGHT", self.entryView.frame, "RIGHT", 0, 0)
 
     self.frame = f
 

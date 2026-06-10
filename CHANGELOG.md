@@ -8,6 +8,25 @@ Every version tells a story. Here's what changed, why, and what it means for you
 
 ---
 
+### [0.2.1] — June 2026
+
+Bugfix release — squashed all Lua errors and polished the UI for retail WoW 11.0.7.
+
+**What we fixed**
+
+- Fixed a Lua 5.1 syntax error in `Class.lua` (`obj:constructor` → `obj.constructor`).
+- Removed a circular metatable in `Init.lua` that caused infinite "loop in gettable" errors.
+- Added compatibility guards for `SetMinResize` / `SetMaxResize` (not available in WoW 11.0.7).
+- Exported `SearchBar` class (was missing `CoA.SearchBar = SearchBar` at the end of the file).
+- Fixed `ModelView` rotation by tracking rotation locally instead of calling `GetRotation()` (not available in WoW 11.0.7).
+- Fixed the sidebar NPCs icon by correcting the texture path to `INV_Misc_Head_Orc_01`.
+- Added icons to entry list buttons so every entry shows its icon in search results and category lists.
+- Replaced tab button textures with `BackdropTemplate` for pixel-perfect centering of text.
+- Fixed scroll frame content overflow by dynamically calculating content height.
+- Repositioned the search bar to sit right below the entry view instead of at the window bottom.
+
+---
+
 ### [0.2.0] — June 2026
 
 This was the big one. Almost everything was rewritten from the ground up.
@@ -72,6 +91,25 @@ The very first release.
 ## Español
 
 Cada versión cuenta una historia. Aquí está lo que cambió, por qué, y qué significa para ti.
+
+---
+
+### [0.2.1] — Junio 2026
+
+Versión de corrección — eliminados todos los errores de Lua y pulida la interfaz para WoW Retail 11.0.7.
+
+**Lo que arreglamos**
+
+- Corregido un error de sintaxis en Lua 5.1 en `Class.lua` (`obj:constructor` → `obj.constructor`).
+- Eliminada una metatabla circular en `Init.lua` que causaba errores infinitos de "loop in gettable".
+- Añadidas comprobaciones de compatibilidad para `SetMinResize` / `SetMaxResize` (no disponibles en WoW 11.0.7).
+- Exportada la clase `SearchBar` (faltaba `CoA.SearchBar = SearchBar` al final del archivo).
+- Corregida la rotación de `ModelView` usando una variable local en lugar de `GetRotation()` (no disponible en WoW 11.0.7).
+- Corregido el icono de PNJs en la barra lateral usando la ruta correcta `INV_Misc_Head_Orc_01`.
+- Añadidos iconos a los botones de lista de entradas para que cada entrada muestre su icono.
+- Reemplazadas las texturas de las pestañas por `BackdropTemplate` para un centrado perfecto del texto.
+- Corregido el desbordamiento del contenido del scroll calculando la altura dinámicamente.
+- Reposicionada la barra de búsqueda justo debajo de la vista de entrada en lugar de en la parte inferior de la ventana.
 
 ---
 

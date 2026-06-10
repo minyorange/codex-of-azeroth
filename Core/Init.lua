@@ -1,9 +1,8 @@
 CodexOfAzeroth = CodexOfAzeroth or {}
 local CoA = CodexOfAzeroth
-setmetatable(CoA, { __index = CoA })
 
 CoA.name    = "Codex of Azeroth"
-CoA.version = "0.2.0"
+CoA.version = "0.2.1"
 CoA.debug   = false
 
 CoA.isLoaded        = false

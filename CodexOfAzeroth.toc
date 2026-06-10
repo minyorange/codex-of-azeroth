@@ -2,7 +2,7 @@
 ## Title: Codex of Azeroth
 ## Notes: Un compendio interactivo del lore de World of Warcraft.
 ## Author: minyorange
-## Version: 0.2.0
+## Version: 0.2.1
 ## IconTexture: Interface\Icons\INV_Misc_Book_09
 ## X-Category: Lore
 ## X-Publisher: CodexOfAzeroth
